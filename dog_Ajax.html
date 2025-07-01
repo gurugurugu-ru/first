@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>犬画像ランダム取得</title>
+</head>
+<body>
+  <h1>犬画像ランダム取得（登録不要）</h1>
+  <img id="dogImage" src="" alt="犬画像" width="300" />
+  <br />
+  <button id="btn">画像を更新する</button>
+
+  <script>
+    async function fetchDogImage() {
+      try {
+        const res = await fetch('https://dog.ceo/api/breeds/image/random');
+        if (!res.ok) throw new Error('通信エラー');
+        const data = await res.json();
+        document.getElementById('dogImage').src = data.message;
+      } catch (e) {
+        alert('画像の取得に失敗しました');
+        console.error(e);
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', fetchDogImage);
+    fetchDogImage();
+  </script>
+</body>
+</html>
