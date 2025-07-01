@@ -11,6 +11,9 @@
   <button id="btn">画像を更新する</button>
 
   <script>
+    const dogImage = document.getElementById('dogImage')
+    const fetchBtn = document.getElementById('fetchBtn')
+    
     async function fetchDogImage() {
       try {
         const res = await fetch('https://dog.ceo/api/breeds/image/random');
