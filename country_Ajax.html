@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>国名リスト取得</title>
+</head>
+<body>
+  <h1>国名リスト（登録不要API）</h1>
+  <ul id="countryList">読み込み中…</ul>
+
+  <script>
+    async function fetchCountries() {
+      try {
+        const res = await fetch('https://restcountries.com/v3.1/all');
+        if (!res.ok) throw new Error('通信エラー');
+        const data = await res.json();
+        const ul = document.getElementById('countryList');
+        ul.innerHTML = '';
+        data.forEach(country => {
+          const li = document.createElement('li');
+          li.textContent = country.name.common + '（首都: ' + (country.capital ? country.capital[0] : 'なし') + '）';
+          ul.appendChild(li);
+        });
+      } catch (e) {
+        document.getElementById('countryList').textContent = 'データの取得に失敗しました';
+        console.error(e);
+      }
+    }
+
+    fetchCountries();
+  </script>
+</body>
+</html>
